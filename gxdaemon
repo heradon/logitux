@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if lsmod|grep hid_g19 > /dev/null; then
+  echo "Module loaded!"
+  chmod -R 777 /sys/bus/hid/drivers/hid-g19/
+elif [ -f /lib/modules/`uname -r`/extra/hid-g19.ko ]
+then
+  modprobe hid_g19
+  chmod -R 0777 /sys/bus/hid/drivers/hid-g19/*
+else
+  echo "Please wait reinstalling G19 Module"
+  cd /usr/src/lg4l-v2/
+  make clean; make; make install
+  depmod; modprobe hid_g19
+  echo "Module reinstalled"
+fi

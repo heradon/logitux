@@ -1,0 +1,8 @@
+[Unit]
+Description=gx19 daemon service
+
+[Service]
+ExecStart=/usr/bin/gxdaemon
+
+[Install]
+WantedBy=default.target
