@@ -1,0 +1,43 @@
+# Maintainer: Kuba Serafinowski <zizzfizzix(at)gmail(dot)com>
+# https://github.com/zizzfizzix/pkgbuilds
+
+pkgname=logitux
+pkgver=0.1
+pkgrel=1
+pkgdesc=''
+arch=('any')
+url='http://'
+license=('GPL')
+depends=('zenity lg4vl-v2')
+makedepends=('')
+optdepends=('yad')
+provides=('')
+conflicts=('logitux')
+source=("http://${pkgname}-${pkgver}.tar.bz2")
+md5sums=('')
+install=${pkgname}.install
+
+prepare() {
+  if [[ -e ${srcdir}/${pkgname}-${pkgver}-build ]]; then rm -rf ${srcdir}/${pkgname}-${pkgver}-build; fi
+  mkdir ${srcdir}/${pkgname}-${pkgver}-build
+}
+
+build() {
+  cd ${srcdir}/${pkgname}-${pkgver}-build
+
+  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DCMAKE_INSTALL_LIBEXECDIR=lib/${pkgname} \
+        -DCMAKE_BUILD_TYPE=${_buildtype} \
+        ../${pkgname}-${pkgver}
+  make
+}
+
+package() {
+  cd ${srcdir}/${pkgname}-${pkgver}-build
+  make DESTDIR=${pkgdir} install
+
+  # systemd service
+  install -m755 -d ${pkgdir}/usr/lib/systemd/system
+  install -m644 ${srcdir}/logitux.service {pkgdir}/usr/lib/systemd/system
+}

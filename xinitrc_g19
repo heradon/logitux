@@ -1,0 +1,9 @@
+# xinitrc for G19 Logitech
+
+xset dpms force on
+xset -dpms
+xset s off
+xset -b
+xset r rate 250 30
+
+exec conky -c .conkyrc_g19

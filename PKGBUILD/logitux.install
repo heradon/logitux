@@ -1,0 +1,20 @@
+#install
+
+whisperer(){
+    echo -e '\E[37;44m'"\033[1m----------------------------------------------------------------\033[0m"
+    echo -e '\E[37;44m'"\033[1m				ATTENTION!\033[0m"
+    echo -e '\E[37;44m'"\033[1m----------------------------------------------------------------\033[0m"
+    echo "To enable the Logitux Service"
+    echo "run these commands as root:"
+    echo "systemctl enable logitux"
+    echo "systemctl start logitux"
+    echo -e '\E[37;44m'"\033[1m----------------------------------------------------------------\033[0m"
+}
+
+post_install() {
+	cp -a /usr/share/logitux/xorg.conf.g19 /etc/X11/xorg.conf.g19
+}
+
+post_remove() {
+	rm -rfv /etc/logitux
+}

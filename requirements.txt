@@ -1,2 +1,5 @@
 Xdialog
 lg4l-v2
+
+
+xinit ~/.xinitrc_g19 -- /usr/bin/X :1 -xf86config xorg.conf.g19 -novtswitch -sharevts -audit 0 vt12 &
